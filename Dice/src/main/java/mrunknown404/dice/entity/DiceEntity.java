@@ -158,13 +158,16 @@ public class DiceEntity extends Entity implements IEntityAdditionalSpawnData {
 	
 	@Override
 	protected void readAdditionalSaveData(CompoundTag tag) {
-		r = tag.getInt("R");
-		g = tag.getInt("G");
-		b = tag.getInt("B");
-		type = tag.getByte("Type");
-		rolled = tag.getByte("Rolled");
+		Color defaultColor = Color.WHITE;
+
+		// Default values if the entity is spawned by /summon command, fix #4
+		r = tag.contains("R", 99) ? tag.getInt("R") : defaultColor.getRed();
+		g = tag.contains("G", 99) ? tag.getInt("G") : defaultColor.getGreen();
+		b = tag.contains("B", 99) ? tag.getInt("B") : defaultColor.getBlue();
+		type = tag.contains("Type", 99) ? tag.getByte("Type") : 6;
+		rolled = tag.contains("Rolled", 99) ? tag.getByte("Rolled") : (byte) (1 + random.nextInt(this.type));
 	}
-	
+
 	@Override
 	protected void defineSynchedData() {}
 	
