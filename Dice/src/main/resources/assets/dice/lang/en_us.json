@@ -15,5 +15,6 @@
 	"item.dice.brown_d6": "Brown D6",
 	"item.dice.green_d6": "Green D6",
 	"item.dice.red_d6": "Red D6",
-	"item.dice.black_d6": "Black D6"
+	"item.dice.black_d6": "Black D6",
+	"entity.dice.dice_entity": "Dice"
 }
