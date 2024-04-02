@@ -7,6 +7,7 @@ import mrunknown404.dice.utils.DiceConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -158,14 +159,11 @@ public class DiceEntity extends Entity implements IEntityAdditionalSpawnData {
 	
 	@Override
 	protected void readAdditionalSaveData(CompoundTag tag) {
-		Color defaultColor = Color.WHITE;
-
-		// Default values if the entity is spawned by /summon command, fix #4
-		r = tag.contains("R", 99) ? tag.getInt("R") : defaultColor.getRed();
-		g = tag.contains("G", 99) ? tag.getInt("G") : defaultColor.getGreen();
-		b = tag.contains("B", 99) ? tag.getInt("B") : defaultColor.getBlue();
-		type = tag.contains("Type", 99) ? tag.getByte("Type") : 6;
-		rolled = tag.contains("Rolled", 99) ? tag.getByte("Rolled") : (byte) (1 + random.nextInt(this.type));
+		r = tag.contains("R", Tag.TAG_INT) ? tag.getInt("R") : 255;
+		g = tag.contains("G", Tag.TAG_INT) ? tag.getInt("G") : 255;
+		b = tag.contains("B", Tag.TAG_INT) ? tag.getInt("B") : 255;
+		type = tag.contains("Type", Tag.TAG_BYTE) ? tag.getByte("Type") : 6;
+		rolled = tag.contains("Rolled", Tag.TAG_BYTE) ? tag.getByte("Rolled") : (byte) (1 + random.nextInt(type));
 	}
 
 	@Override
